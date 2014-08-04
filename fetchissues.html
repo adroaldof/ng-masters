@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Buscar Issues</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/bootstrap.css" />
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body {
+      padding-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-lg-offset-3 well">
+
+        <div class="col-lg-offset-1 row">
+          <h2>Buscar Github Repo Issues</h2>
+          <p>Entre com o usuário e repositório para listar as issues</p>
+        </div>
+
+        <div class="row">
+          <div class="form-inline col-lg-offset-1">
+            <div class="form-group">
+              <input type="text" class="form-control" name="user" placeholder="Username" required />
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="reponame" placeholder="Repo name" required />
+            </div>
+            <button class="btn btn-default" id="findIssuesBtn" type="submit">Buscar Issues</button>
+          </div>
+        </div>
+
+        <br>
+      </div>
+    </div>
+
+    <div class="row" id="answer">
+      <div class="row">
+        <h3>Resultados da Pesquisa</h3>
+      </div>
+
+      <div class="row">
+        <div id="charging">
+          <img src="img/loading.gif" alt="Carregando Resultados"> Carregando
+        </div>
+        <div class="something-wrong"></div>
+      </div>
+
+      <div class="row">
+        <table id="issuestable" class="table table-striped table-hover">
+          <thead>
+            <tr><th>Número</th><th>Título</th><th>Estado</th><th>Identificador</th>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/vendor/jquery-2.1.1.js"></script>
+  <script src="js/vendor/bootstrap.js"></script>
+
+  <script>
+    (function($, window, document) {
+
+      // ---- Variables declarations ---- //
+      var issues = [],
+          answer = $('#answer'),
+          errorMessage = $('.something-wrong'),
+          chargingAnimation = $('#charging'),
+          targetTable = $('#issuestable'),
+          userName = $('input[name=user]'),
+          repoName = $('input[name=reponame]'),
+          dynamicItems = '';
+
+
+      // ---- Functions declarations ---- //
+      var setErrorMessage = function (message) {
+        errorMessage.find('p').remove();
+        errorMessage.append('<p>' + message + '</p>');
+      };
+
+      var translateState = function (state) {
+        if (state === 'open') {
+          return 'Aberto';
+        } else {
+          return 'Fechado';
+        }
+      };
+
+      var fillTable = function () {
+        $.each(issues, function () {
+          dynamicItems +='<tr><td>' + this.number +
+                         '</td><td><a href="' + this.html_url + '">' + this.title + '</a>' +
+                         '</td><td>' + translateState(this.state) +
+                         '</td><td>' + this.id + '</td></tr>';
+        });
+
+        // Append data on table and display it
+        targetTable.find('tbody').append(dynamicItems);
+        targetTable.show();
+
+        // Remove charging animation
+        chargingAnimation.hide();
+      };
+
+
+      var getIssues = function (user, repo) {
+        var issueUrl = 'https://api.github.com/repos/' + user + '/' + repo + '/issues';
+
+        // Make ajax call
+        return $.ajax({
+          url: issueUrl,
+          type: 'get',
+          dataType: 'json',
+          timeout: 5000
+        });
+      };
+
+
+      var removeIssues = function () {
+        issues = [];
+        dynamicItems = {};
+        targetTable.find('tbody').find('tr').remove('tr');
+      };
+
+
+      // ---- All hard work here ---- //
+      $(function() {
+
+        // Hide page components
+        answer.hide();
+        errorMessage.hide();
+        chargingAnimation.hide();
+        targetTable.hide();
+
+        // Action on search issues button
+        $('#findIssuesBtn').on('click', function () {
+          targetTable.hide();
+          removeIssues();
+
+          if (userName.val() !== '' && repoName.val() !== '') {
+            // Show answer div and charging animation
+            answer.show();
+            chargingAnimation.find('img').css({'width': '30px', 'height': '30px'});
+            chargingAnimation.show();
+            errorMessage.hide();
+
+            // Make ajax call
+            getIssues(userName.val(), repoName.val()).done(function (data) {
+              issues = data;
+              fillTable();
+            }).error(function () {
+              chargingAnimation.hide();
+              errorMessage.show();
+              setErrorMessage('Não foi possivel obter os dados do servidor. Verifique usuário ou repositório!');
+            });
+          } else {
+            answer.show();
+            errorMessage.show();
+            if (userName.val() !== '' || repoName.val() !== '') {
+              setErrorMessage('Verifique os campos de busca!');
+            }
+          }
+
+        });
+
+        // Hide answer div when username field get focus
+        userName.on('focus', function () {
+          answer.hide();
+          removeIssues();
+        });
+
+        // Hide answer div when reponame field get focus
+        repoName.on('focus', function () {
+          answer.hide();
+          removeIssues();
+        });
+
+      });
+    }(window.jQuery, window, document));
+  </script>
+
+</body>
+</html>
