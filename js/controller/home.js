@@ -1,3 +1,3 @@
-restaurantApp.controller('HomeCtrl', function ($scope) {
+mainApp.controller('HomeCtrl', function ($scope) {
   $scope.initialPhrase = 'Initial phrase test';
 });
