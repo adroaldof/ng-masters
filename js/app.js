@@ -16,3 +16,9 @@ mainApp.run(function ($rootScope) {
   $rootScope.appTitle = 'Ang App Title';
   $rootScope.appName = 'Ang App';
 });
+
+
+// Set Globals variables and functions
+if (!window.globals) {
+  var globals = {};
+}
