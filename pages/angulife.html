@@ -1,0 +1,86 @@
+<style>
+  /***** Anglife *****/
+  .live {
+    padding-top: 10px;
+    color: #3a258d;
+    background-color: #7fb97f;
+  }
+
+  .death {
+    padding-top: 10px;
+    color: #f54747;
+    background-color: #CCC;
+  }
+
+  .anglife-table {
+    margin: 20px auto;
+    cell-spacing: 2px;
+  }
+
+  .cell-content {
+    display: table-cell;
+    width: 35px;
+    text-align: center;
+    vertical-align: middle;
+    border: 2px solid #FFF;
+    border-radius: 6px;
+  }
+</style>
+
+<article>
+
+  <div class="row">
+    <h1>Angulife</h1>
+  </div>
+
+  <div class="row form-inline">
+    <div class="form-group">
+      <label for="lines">Linhas</label>
+      <input type="number" class="form-control" ng-model="rowNumber" name="lines" min="1" max="50" ng-change="mountGrid()">
+    </div>
+    <div class="form-group">
+      <label for="columns">Colunas</label>
+      <input type="number" class="form-control" ng-model="colNumber" name="columns" min="1" max="40" ng-change="mountGrid()">
+    </div>
+    <div class="form-group">
+      <button class="btn btn-default" ng-click="mountGrid()">Montar Tabela</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <h3>Informação sobre a tabela</h3>
+    <p>Tabela com {[{ rowNumber }]} linhas e {[{ colNumber }]} colunas.</p>
+  </div>
+
+  <div class="row">
+    <h3>Controles de jogo</h3>
+    <p>Vivos {[{ liveOnes }]} | Geração {[{ generationCount }]}</p>
+    <div class="row form-inline">
+      <button class="btn btn-default" ng-click="reset()">Limpar</button>
+      <button class="btn btn-default" ng-click="step()">Passo</button>
+    </div>
+    <br>
+    <div class="row form-inline">
+      <div class="form-group">
+        <label for="columns">Intervalo</label>
+        <input type="number" class="form-control" ng-model="stepInterval" name="columns" min="0" max="30" >
+      </div>
+      <button class="btn btn-default" ng-click="stepAuto()">Passo Automático</button>
+      <button class="btn btn-default" ng-click="stopStepAuto()">Parar</button>
+    </div>
+  </div>
+
+</article>
+
+<article>
+  <table class="anglife-table">
+    <tr ng-repeat="rows in gameTable track by $index">
+      <td ng-repeat="col in rows.cols track by $index">
+        <span class="cell-content" ng-class="{live: col.lifeStatus, death: !col.lifeStatus}" ng-click="toggleLifeStatus(col)">
+          <p ng-show="col.lifeStatus"><span class="glyphicon glyphicon-user"></span></p>
+          <p ng-show="!col.lifeStatus"><span class="glyphicon glyphicon-fire"></span></p>
+        </span>
+      </td>
+    </tr>
+  </table>
+</article>
