@@ -1,11 +1,5 @@
 # ng-master Course
 
-This repo is intended cover assingments for [ng-master Angular JS course](http://ng-masters.com/)
+This repo is intended cover assingments for [ng-masters AngularJS course](http://ng-masters.com/) by Tony Lâmpada
 
-## First assingment
-
-> Build an jQuery GitHub page to get repo issues
->
-> [First assignment](http://adroaldof.github.io/ng-masters/fetchissues.html)
-
----
+Assingments can be found [here](http://adroaldof.github.io/ng-masters)
