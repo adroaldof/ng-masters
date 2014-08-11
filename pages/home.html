@@ -1,4 +1,37 @@
 <article>
-  <div>Main Page</div>
-  <p>{[{ initialPhrase }]}</p>
+
+  <div class="jumbotron">
+    <h1>Curso {[{ course }]}</h1>
+    <p>Página dedicada aos exercícios do curso <a href="http://ng-masters.com">{[{ course }]}</a> com Tony Lâmpada</p>
+    <p>Aqui serão postados os exercícios aprendidos no curso bem como alguns pontos de estudos</p>
+  </div>
+
+  <div class="row">
+
+    <div class="row">
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <img src="../img/loading.gif" alt="Buscar Github Issues" style="width: 150px; height: 150px;">
+          <div class="caption">
+            <h3>Buscar Github Issues</h3>
+            <p>Página feita em jQuery destinada a buscar 'issues' em repositórios do Github. Utilizando o username e o nome do repositório é possível buscar os issues pertencentes a este repositório</p>
+            <p><a href="#/buscarissues" class="btn btn-primary" role="button">Buscar Github Issues</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <img src="../img/life.gif" alt="Angulife" style="width: 200px; height: 150px;">
+          <div class="caption">
+            <h3>Angulife</h3>
+            <p>Jogo <a href="http://pt.wikipedia.org/wiki/Jogo_da_vida">Life</a> de John Horton Conway feito em AngularJS. Segundo o artigo do Wikipedia o jogo foi criado de modo a reproduzir, através de regras simples, as alterações e mudanças em grupos de seres vivos, tendo aplicações em diversas áreas da ciência</p>
+            <p><a href="#/angulife" class="btn btn-primary" role="button">Angulife</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
 </article>
