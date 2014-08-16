@@ -7,9 +7,9 @@ mainApp.config(function ($interpolateProvider) {
 
 // Define app routes
 mainApp.config(function ($routeProvider) {
-  $routeProvider.when('/angulife', {templateUrl: 'pages/angulife.html', controller: 'AngulifeCtrl'});
-  $routeProvider.when('/buscarissues', {templateUrl: 'pages/fetchissues.html'});
-  $routeProvider.when('/home', {templateUrl: 'pages/home.html', controller: 'HomeCtrl'});
+  $routeProvider.when('/angulife', {templateUrl: 'views/angulife.html', controller: 'AngulifeCtrl'});
+  $routeProvider.when('/buscarissues', {templateUrl: 'views/fetchissues.html'});
+  $routeProvider.when('/home', {templateUrl: 'views/home.html', controller: 'HomeCtrl'});
   $routeProvider.otherwise({redirectTo: '/home'});
 });
 
