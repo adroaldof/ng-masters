@@ -1,0 +1,50 @@
+<style>
+  .listitemdone {
+    color: #CCC;
+    text-decoration: line-through;
+  }
+
+  .table td:first-child, td:last-child {
+    width: 50px;
+  }
+</style>
+
+<article>
+
+  <div class="col-lg-6 col-lg-offset-3 well">
+    <h1>Lista de Tarefas</h1>
+    <form ng-submit="addTodo()">
+      <input class="form-control" placeholder="Insira uma nova tarefa e tecle Enter" ng-model="newTodo" autofocus>
+    </form>
+  </div>
+
+  <section class="col-lg-6 col-lg-offset-3" ng-show="todos.length" ng-cloak>
+    <div class="row">
+      <div class="btn-group">
+        <label class="btn btn-primary">
+          <input type="checkbox" ng-model="allChecked" ng-click="checkAll(allChecked)">
+          Marcar todos como completo
+        </label>
+      </div>
+    </div>
+
+    <div class="row">
+      <h3>Itens</h3>
+
+      <table class="table">
+        <tr ng-repeat="todo in todos | filter:statusFilter track by $index">
+          <td>
+            <input type="checkbox" ng-model="todo.completed">
+          </td>
+          <td>
+            <label ng-class="{listitemdone: todo.completed}" >{[{ todo.title }]}</label>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-danger" ng-click="removeTodo(todo)"><span class="glyphicon glyphicon-remove-sign"></span></button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+</article>
