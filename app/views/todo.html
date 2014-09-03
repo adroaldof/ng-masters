@@ -36,8 +36,11 @@
           <td>
             <input type="checkbox" ng-model="todo.completed">
           </td>
-          <td>
-            <label ng-class="{listitemdone: todo.completed}" >{[{ todo.title }]}</label>
+          <td ng-dblclick="editTodo(todo)">
+            <label ng-class="{listitemdone: todo.completed}" ng-hide="todo.editing">{[{ todo.title }]}</label>
+            <form ng-submit="doneEditing(todo)">
+              <input class="form-control" ng-show="todo.editing" ng-trim="false" ng-model="todo.title" ng-focus="todo" ng-blur="doneEditing(todo)">
+            </form>
           </td>
           <td>
             <button class="btn btn-sm btn-danger" ng-click="removeTodo(todo)"><span class="glyphicon glyphicon-remove-sign"></span></button>

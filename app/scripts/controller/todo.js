@@ -3,10 +3,10 @@
   angular.module('AngApp').controller('TodoCtrl', ['$scope', function ($scope) {
 
     var todos = $scope.todos = [
-      {title: 'Reservar salão de festas', completed: false},
-      {title: 'Comprar Bebidas', completed: false},
-      {title: 'Coprar carne', completed: false},
-      {title: 'Carvão', completed: true}
+      {title: 'Reservar salão de festas', completed: false, editing: false},
+      {title: 'Comprar Bebidas', completed: false, editing: false},
+      {title: 'Coprar carne', completed: false, editing: false},
+      {title: 'Carvão', completed: true, editing: false}
     ];
 
     $scope.addTodo = function () {
@@ -18,7 +18,8 @@
 
       todos.push({
         title: newTodo,
-        completed: false
+        completed: false,
+        editing: false
       });
 
       delete $scope.newTodo;
@@ -32,6 +33,21 @@
       todos.forEach(function (todo) {
         todo.completed = !completed;
       });
+    };
+
+    $scope.editTodo = function (todo) {
+      todo.editing = true;
+      $scope.originalTodo = angular.extend({}, todo);
+    };
+
+    $scope.doneEditing = function (todo) {
+      todo.title = todo.title.trim();
+
+      if (!todo.title) {
+        todo = $scope.originalTodo;
+      }
+
+      todo.editing = false;
     };
 
   }]);

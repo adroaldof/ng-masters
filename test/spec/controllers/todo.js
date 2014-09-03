@@ -44,4 +44,15 @@ describe('Controller: TodoCtrl', function () {
     expect(completed).toBe(4);
   });
 
+  it('should set editing property as true', function() {
+    scope.editTodo(scope.todos[0]);
+    expect(scope.todos[0].editing).toBe(true);
+  });
+
+  it('should set editing property back as false', function() {
+    scope.editTodo(scope.todos[0]);
+    scope.doneEditing(scope.todos[0]);
+    expect(scope.todos[0].editing).toBe(false);
+  });
+
 });
