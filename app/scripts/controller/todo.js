@@ -55,5 +55,11 @@
       $scope.doneEditing($scope.originalTodo);
     };
 
+    $scope.clearCompletedTodos = function () {
+      $scope.todos = todos = todos.filter(function (val) {
+        return !val.completed;
+      });
+    };
+
   }]);
 })();

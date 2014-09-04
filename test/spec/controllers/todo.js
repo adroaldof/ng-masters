@@ -64,4 +64,17 @@ describe('Controller: TodoCtrl', function () {
     expect(scope.todos[0]).toBe(originalTodo);
   });
 
+  it('should clear all completed todos', function() {
+    var completed = 0;
+    scope.todos[0].completed = true;
+
+    scope.todos.forEach (function (item) {
+      if (item.completed) {
+        completed++;
+      }
+    });
+
+    expect(completed).toBe(2);
+  });
+
 });
