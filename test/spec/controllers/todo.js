@@ -33,7 +33,7 @@ describe('Controller: TodoCtrl', function () {
 
   it('should mark all items as completed', function () {
     var completed = 0;
-    scope.markAll();
+    scope.checkAll();
 
     scope.todos.forEach (function (item) {
       if (item.completed) {
