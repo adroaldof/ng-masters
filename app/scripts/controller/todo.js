@@ -44,7 +44,7 @@
       todo.title = todo.title.trim();
 
       if (!todo.title) {
-        todo = $scope.originalTodo;
+        $scope.removeTodo(todo);
       }
 
       todo.editing = false;
