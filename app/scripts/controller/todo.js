@@ -50,5 +50,10 @@
       todo.editing = false;
     };
 
+    $scope.revertEditing = function (todo) {
+      todos[todos.indexOf(todo)] = $scope.originalTodo;
+      $scope.doneEditing($scope.originalTodo);
+    };
+
   }]);
 })();

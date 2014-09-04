@@ -55,4 +55,13 @@ describe('Controller: TodoCtrl', function () {
     expect(scope.todos[0].editing).toBe(false);
   });
 
+  it('should revert back to original todo', function() {
+    scope.editTodo(scope.todos[0]);
+    var originalTodo = scope.originalTodo;
+    scope.todos[0].title = 'Some test';
+    scope.doneEditing(scope.todos[0]);
+    scope.revertEditing(scope.todos[0]);
+    expect(scope.todos[0]).toBe(originalTodo);
+  });
+
 });
